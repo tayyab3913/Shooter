@@ -126,8 +126,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 150
+  enemyDamage: 10
   movementForce: 20
-  maxSpeed: 2.5
+  maxSpeed: 2
   spawnPoint: {fileID: 0}
   gameManagerScript: {fileID: 0}
   playerReference: {fileID: 0}
+  isKilled: 0
