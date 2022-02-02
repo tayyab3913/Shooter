@@ -48,11 +48,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // This method alloows enemy to get damage
     public void GetDamage(float tempDamage)
     {
         health -= tempDamage;
     }
 
+    // This method checks to see if the enemy has died and performs appropriate tasks
     void CheckDeath()
     {
         if(health<1)
@@ -63,36 +65,43 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // This method sets the spawn point from where the enemey came
     public void SetSpawnPoint(GameObject tempSpawnPoint)
     {
         spawnPoint = tempSpawnPoint;
     }
 
+    // This method sets the GameManager script reference
     public void SetGameManager(GameManager tempGameManager)
     {
         gameManagerScript = tempGameManager;
     }
 
+    // This method gets a new enemy when this one dies
     void GetNewEnemy(bool isKilled)
     {
         gameManagerScript.GetEnemyAtPoint(spawnPoint, isKilled);
     }
 
+    // This method sets the PlayerController script reference
     public void SetPlayer(GameObject tempPlayerReference)
     {
         playerReference = tempPlayerReference;
     }
 
+    // This method checks the direction of the player
     void PlayerDirection()
     {
         moveDirection = (playerReference.transform.position - transform.position).normalized;
     }
 
+    // This method moves the enemy towards the player
     void MoveTowardsPlayer()
     {
         enemyRb.AddForce(moveDirection * movementForce);
     }
 
+    // This method stops the enemy from moving faster then the speed limit
     void VelocityInCheck()
     {
         if (enemyRb.velocity.magnitude > maxSpeed)
@@ -101,6 +110,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // This method checks if the enemy has collided with someone and performs appropriately
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Player"))

@@ -9,29 +9,15 @@ public class Gun : MonoBehaviour
     public float throwForce = 500;
     public PlayerController playerControllerScript;
     public GameObject shootPoint;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // This method instantiates a bullet and gives it the gun's shoot power
     public void InstantiateBullet()
     {
         GameObject bullet = Instantiate(bulletPrefab, shootPoint.transform.position, shootPoint.transform.rotation);
         bullet.GetComponent<Bullet>().SetDamageValue(shootDamage, throwForce);
     }
 
-    public void OnEnableGun()
-    {
-        playerControllerScript.SetActiveGun(this);
-    }
-
+    // This method gets the PlayerController script reference
     public void GetPlayerReference(PlayerController tempPlayerControllerReference)
     {
         playerControllerScript = tempPlayerControllerReference;

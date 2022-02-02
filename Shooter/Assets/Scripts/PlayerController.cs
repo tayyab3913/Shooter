@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
         ShootBullet();
     }
 
+    // This method is called in update to control player movement
     void Movement()
     {
         horizontalInput = Input.GetAxis("Horizontal");
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
         SmoothControl();
     }
 
+    // This method is called in update to allow player to shoot via the active gun
     void ShootBullet()
     {
         if(Input.GetKeyDown(KeyCode.Space))
@@ -58,11 +60,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // This method is used to set active a gun
     public void SetActiveGun(Gun tempActiveGun)
     {
         activeGun = tempActiveGun;
     }
 
+    // This method sets gun1 as active gun
     void SetFirstGun()
     {
         gun1.SetActive(true);
@@ -71,6 +75,7 @@ public class PlayerController : MonoBehaviour
         gun3.SetActive(false);
     }
 
+    // This method sets gun2 as active gun
     void SetSecondGun()
     {
         gun2.SetActive(true);
@@ -79,6 +84,7 @@ public class PlayerController : MonoBehaviour
         gun3.SetActive(false);
     }
 
+    // This method sets gun3 as active gun
     void SetThirdGun()
     {
         gun3.SetActive(true);
@@ -87,6 +93,7 @@ public class PlayerController : MonoBehaviour
         gun2.SetActive(false);
     }
 
+    // This method checks user input to activate a gun
     void ActivateGunWithInput()
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -101,11 +108,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // This method gets the reference of the GameManager script
     public void SetGameManager(GameManager tempGameManagerScript)
     {
         gameManagerScript = tempGameManagerScript;
     }
 
+    // This method stops the rotation of player
     void SmoothControl()
     {
         if(horizontalInput == 0)
@@ -114,12 +123,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // This method allows player to get damage
     public void GetDamage(float damage)
     {
         health -= damage;
         CheckDeath();
     }
 
+    // This method checks if player has died and performs appropriate tasks
     void CheckDeath()
     {
         if(health < 0)

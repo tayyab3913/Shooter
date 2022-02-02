@@ -26,12 +26,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameTimer());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // This method instantiates 5 enemies on the spawn points
     void StartGameInstantiateEnemy()
     {
         for (int i = 0; i < 5; i++)
@@ -44,11 +39,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // This method allows us to instantiate a new enemy from the spawn point where the fallen enemy came from
     public void GetEnemyAtPoint(GameObject spawnPosition, bool isKilled)
     {
         StartCoroutine(InstantiateEnemyAtPoint(spawnPosition, isKilled));
     }
 
+    // This coroutine waits for some time and instantiates the new enemy
     IEnumerator InstantiateEnemyAtPoint(GameObject spawnPosition, bool isKilled)
     {
         if(!gameOver)
@@ -66,6 +63,7 @@ public class GameManager : MonoBehaviour
         }  
     }
 
+    // This method sets the game over after 60 seconds and displays game status
     IEnumerator GameTimer()
     {
         yield return new WaitForSeconds(60);
@@ -77,6 +75,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // This method instantiates a player from the player prefab on start of the game
     void InstantiatePlayer()
     {
         playerReference = Instantiate(playerPrefab, new Vector3(0, 2, 0), playerPrefab.transform.rotation);
@@ -84,7 +83,7 @@ public class GameManager : MonoBehaviour
         playerScript.SetGameManager(this);
     }
 
-        
+    // This method displays if the game is won or lost
     public void DisplayGameStatus()
     {
         if (enemyKills >= 15)
@@ -97,11 +96,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // This method sets active the UI once the game is over
     public void SetGameOverUI()
     {
         uiCanvas.gameObject.SetActive(true);
     }
 
+    // This method reloads the scene once the reload button is pressed
     public void ReloadSceneOnButtonClick()
     {
         SceneManager.LoadScene(0);
