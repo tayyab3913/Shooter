@@ -16,10 +16,16 @@ public class Enemy : MonoBehaviour
     private Vector3 moveDirection;
     private Vector3 haltEnemy = new Vector3(0, 0, 0);
     public bool isKilled = false;
+    public AudioClip enemyDeathSound;
+    public AudioClip hitPlayerSound;
+    public AudioClip enemySpawnSound;
+    private AudioSource enemyAudio;
     // Start is called before the first frame update
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
+        enemyAudio = GetComponent<AudioSource>();
+        enemyAudio.PlayOneShot(enemySpawnSound);
         if(!gameManagerScript.gameOver)
         {
             playerScript = playerReference.GetComponent<PlayerController>();
@@ -51,6 +57,7 @@ public class Enemy : MonoBehaviour
     {
         if(health<1)
         {
+            enemyAudio.PlayOneShot(enemyDeathSound);
             Destroy(gameObject);
             GetNewEnemy(isKilled);
         }
@@ -98,6 +105,7 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
+            enemyAudio.PlayOneShot(hitPlayerSound);
             GetDamage(150);
             playerScript.GetDamage(enemyDamage);
         } else if(collision.gameObject.CompareTag("Wall"))

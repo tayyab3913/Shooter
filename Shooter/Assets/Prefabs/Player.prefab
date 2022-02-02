@@ -232,6 +232,7 @@ MonoBehaviour:
   rotationSpeed: 400
   horizontalInput: 0
   verticalInput: 0
+  shootSound: {fileID: 8300000, guid: 224ec03fab583f245aa87dcd5bd77ffd, type: 3}
   activeGun: {fileID: 0}
   gun1: {fileID: 2944998740928699493}
   gun2: {fileID: 2944998741184575094}

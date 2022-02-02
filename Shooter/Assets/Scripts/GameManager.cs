@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public bool gameOver = false;
+    public Camera mainCamera;
     public GameObject enemyPrefab;
     public GameObject playerPrefab;
     public GameObject[] spawnPositions;
     public int enemyKills = 0;
     private GameObject playerReference;
     private PlayerController playerScript;
+    public Canvas uiCanvas;
 
     // Start is called before the first frame update
     void Start()
     {
+        mainCamera.enabled = false;
+        uiCanvas.gameObject.SetActive(false);
         InstantiatePlayer();
         StartGameInstantiateEnemy();
         StartCoroutine(GameTimer());
@@ -66,6 +72,7 @@ public class GameManager : MonoBehaviour
         if(!gameOver)
         {
             gameOver = true;
+            SetGameOverUI();
             DisplayGameStatus();
         }
     }
@@ -88,5 +95,15 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Player Lost! Total kills: " + enemyKills);
         }
+    }
+
+    public void SetGameOverUI()
+    {
+        uiCanvas.gameObject.SetActive(true);
+    }
+
+    public void ReloadSceneOnButtonClick()
+    {
+        SceneManager.LoadScene(0);
     }
 }

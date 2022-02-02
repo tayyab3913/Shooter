@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float rotationSpeed = 50;
     public float horizontalInput;
     public float verticalInput;
+    public AudioClip shootSound;
     public Gun activeGun;
     public GameObject gun1;
     public GameObject gun2;
@@ -19,10 +20,12 @@ public class PlayerController : MonoBehaviour
     public GameManager gameManagerScript;
     private Vector3 haltPlayer = new Vector3(0, 0, 0);
     private Rigidbody playerRb;
+    private AudioSource playerAudio;
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        playerAudio = GetComponent<AudioSource>();
         gun1Script = gun1.GetComponent<Gun>();
         gun2Script = gun2.GetComponent<Gun>();
         gun3Script = gun3.GetComponent<Gun>();
@@ -50,6 +53,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
+            playerAudio.PlayOneShot(shootSound);
             activeGun.InstantiateBullet();
         }
     }
@@ -122,6 +126,8 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("The player died.");
             gameManagerScript.gameOver = true;
+            gameManagerScript.mainCamera.enabled = true;
+            gameManagerScript.SetGameOverUI();
             gameManagerScript.DisplayGameStatus();
             Destroy(gameObject);
         }
